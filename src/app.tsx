@@ -4,6 +4,7 @@ import "./app.css";
 import Posts from "./pages/posts";
 import PostView from "./pages/posts/[id]";
 import PostNew from "./pages/new";
+import PostsProvider from "./components/PostsContext";
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
           <a href="/">
             <h1>Solidarity</h1>
           </a>
-          {props.children}
+          <PostsProvider>{props.children}</PostsProvider>
         </main>
       )}
     >
