@@ -1,43 +1,25 @@
-import { For } from "solid-js";
+import { Route, Router } from "@solidjs/router";
 import "./app.css";
 
-const POSTS = [
-  {
-    id: 1,
-    title: "First Blog Post",
-    caption: "This is where it all starts",
-    content: "",
-    date: new Date(),
-  },
-  {
-    id: 2,
-    title: "Second Blog Post",
-    caption: "This is where it all continues",
-    content: "",
-    date: new Date(),
-  },
-];
+import Posts from "./pages/posts";
+import PostView from "./pages/posts/[id]";
+import PostNew from "./pages/new";
 
 export default function App() {
   return (
-    <main>
-      <a href="/">
-        <h1>Solidarity</h1>
-      </a>
-      <ul>
-        <For each={POSTS}>
-          {(post) => (
-            <li>
-              <a href={`/posts/${post.id}`}>
-                <h3>{post.title}</h3>
-                <small>{post.date.toLocaleDateString()}</small>
-                <p>{post.caption}</p>
-              </a>
-            </li>
-          )}
-        </For>
-      </ul>
-      <a href="/new">Add a New Post...</a>
-    </main>
+    <Router
+      root={(props) => (
+        <main>
+          <a href="/">
+            <h1>Solidarity</h1>
+          </a>
+          {props.children}
+        </main>
+      )}
+    >
+      <Route path="/" component={Posts} />
+      <Route path="/posts/:id" component={PostView} />
+      <Route path="/new" component={PostNew} />
+    </Router>
   );
 }
