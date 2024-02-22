@@ -1,4 +1,5 @@
 import { useNavigate } from "@solidjs/router";
+import { addPost } from "~/lib/posts";
 
 export default function PostNew() {
   const navigate = useNavigate();
@@ -7,13 +8,10 @@ export default function PostNew() {
       onSubmit={(e) => {
         e.preventDefault();
         const form: any = e.target;
-        fetch("/api/posts", {
-          method: "POST",
-          body: JSON.stringify({
-            title: form.title.value,
-            caption: form.caption.value,
-            content: form.content.value,
-          }),
+        addPost({
+          title: form.title.value,
+          caption: form.caption.value,
+          content: form.content.value,
         }).then(() => navigate("/"));
       }}
     >

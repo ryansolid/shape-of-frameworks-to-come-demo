@@ -1,3 +1,4 @@
+"use server";
 import { Post } from "~/types";
 import { storage } from "./db";
 

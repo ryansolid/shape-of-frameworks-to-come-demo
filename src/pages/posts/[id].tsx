@@ -1,10 +1,9 @@
 import { RouteSectionProps, createAsync } from "@solidjs/router";
 import { Show } from "solid-js";
+import { getPost } from "~/lib/posts";
 
 export default function PostView(props: RouteSectionProps) {
-  const post = createAsync(async () =>
-    (await fetch(`/api/posts/${props.params.id}`)).json()
-  );
+  const post = createAsync(() => getPost(+props.params.id));
   return (
     <Show when={post()}>
       {(post) => (
