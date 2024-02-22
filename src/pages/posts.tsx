@@ -1,27 +1,12 @@
+import { createAsync } from "@solidjs/router";
 import { For } from "solid-js";
 
-const POSTS = [
-  {
-    id: 1,
-    title: "First Blog Post",
-    caption: "This is where it all starts",
-    content: "",
-    timestamp: Date.now(),
-  },
-  {
-    id: 2,
-    title: "Second Blog Post",
-    caption: "This is where it all continues",
-    content: "",
-    timestamp: Date.now(),
-  },
-];
-
 export default function Posts() {
+  const posts = createAsync(async () => (await fetch("/api/posts")).json());
   return (
     <>
       <ul>
-        <For each={POSTS}>
+        <For each={posts()}>
           {(post) => (
             <li>
               <a href={`/posts/${post.id}`}>
